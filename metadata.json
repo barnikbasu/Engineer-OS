@@ -1,0 +1,6 @@
+{
+  "name": "ENGINEER OS",
+  "description": "A futuristic, cinematic, all-in-one engineering scientist command center dashboard with immersive 3D systems and AI-powered diagnostic modules.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

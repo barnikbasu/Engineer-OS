@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@300;400;700&family=Orbitron:wght@400;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-os-cyan: #00f2ff;
+  --color-os-blue: #0066ff;
+  --color-os-gold: #ffb800;
+  --color-os-orange: #FF7A00;
+  --color-os-red: #ff3e3e;
+  --color-os-bg: #020508;
+}
+
+@layer base {
+  body {
+    @apply bg-os-bg text-white overflow-hidden selection:bg-os-cyan selection:text-os-bg;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    background-image: 
+      radial-gradient(circle at 50% 50%, rgba(7, 17, 27, 1) 0%, rgba(2, 5, 8, 1) 100%),
+      url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+  }
+
+  .glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.6), 0 0 20px rgba(0, 242, 255, 0.4);
+  }
+
+  .glow-orange {
+    text-shadow: 0 0 10px rgba(255, 122, 0, 0.6), 0 0 20px rgba(255, 122, 0, 0.4);
+  }
+  
+  .glow-box-cyan {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.25), inset 0 0 20px rgba(0, 242, 255, 0.15);
+  }
+
+  .glow-box-orange {
+    box-shadow: 0 0 20px rgba(255, 122, 0, 0.25), inset 0 0 20px rgba(255, 122, 0, 0.15);
+  }
+
+  .border-glass {
+    @apply border border-white/10 bg-white/5 backdrop-blur-xl shadow-inner;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-button {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  }
+
+  .glass-button:hover {
+    @apply bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)];
+  }
+
+  .os-panel {
+    @apply border border-white/5 bg-black/40 backdrop-blur-2xl rounded-3xl overflow-hidden shadow-2xl;
+  }
+
+  /* Scanline effect */
+  .scanlines {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 242, 255, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 50;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-spin-slow {
+    animation: spin 10s linear infinite;
+  }
+
+  .animate-spin-reverse-slow {
+    animation: spin-reverse 15s linear infinite;
+  }
+
+  .animate-ping-slow {
+    animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .mask-fade-top {
+    mask-image: linear-gradient(to top, black 80%, transparent 100%);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 255, 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 242, 255, 0.5);
+}
+
