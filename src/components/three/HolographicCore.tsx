@@ -24,7 +24,7 @@ export const HolographicCore: React.FC = () => {
       <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
         <Sphere ref={sphereRef} args={[1, 64, 64]}>
           <MeshDistortMaterial
-            color="#00f2ff"
+            color="#E23636"
             attach="material"
             distort={0.4}
             speed={4}
@@ -37,22 +37,22 @@ export const HolographicCore: React.FC = () => {
         </Sphere>
         
         <Sphere args={[0.9, 32, 32]}>
-          <meshBasicMaterial color="#00f2ff" transparent opacity={0.1} />
+          <meshBasicMaterial color="#E23636" transparent opacity={0.1} />
         </Sphere>
       </Float>
 
       <group ref={ringRef}>
          <mesh rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[1.5, 0.02, 16, 100]} />
-            <meshBasicMaterial color="#00f2ff" transparent opacity={0.4} />
+            <meshBasicMaterial color="#E23636" transparent opacity={0.4} />
          </mesh>
          <mesh rotation={[Math.PI / 2, Math.PI / 4, 0]}>
             <torusGeometry args={[1.8, 0.01, 16, 100]} />
-            <meshBasicMaterial color="#0066ff" transparent opacity={0.2} />
+            <meshBasicMaterial color="#ffb800" transparent opacity={0.2} />
          </mesh>
       </group>
 
-      <pointLight position={[0, 0, 0]} intensity={2} color="#00f2ff" />
+      <pointLight position={[0, 0, 0]} intensity={2} color="#E23636" />
     </group>
   );
 };

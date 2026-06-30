@@ -4,17 +4,14 @@ import { useOSStore } from '../../store/useOSStore';
 import { Terminal, Cpu, Database, Network, ShieldCheck } from 'lucide-react';
 
 const BOOT_LOGS = [
-  "INITIALIZING KERNEL v4.2.0-ENGINEER...",
-  "SEARCHING FOR AI CORE...",
-  "CORE DETECTED: J.A.R.V.I.S CLONE v9",
-  "LOADING NEURAL SYNAPSE MODULES...",
-  "CONNECTING TO GLOBAL RESEARCH NETWORK...",
-  "ESTABLISHING SATELLITE UPLINK...",
-  "CALIBRATING 3D RENDER ENGINE...",
-  "SECURING BIOMETRIC DATA PATHS...",
-  "REACTOR STATUS: STABLE",
-  "DECRYPTING ENGINEERING PROTOCOLS...",
-  "ENGINEER OS READY."
+  "INITIALIZING MULTIDISCIPLINARY ENGINEERING COMMAND KERNEL v85.4.0...",
+  "CONNECTING COMPUTER SCIENCE CORE & AI/ML SYSTEMS...",
+  "CHECKING ELECTRICAL SYSTEMS, VLSI SEMICONDUCTORS & MICROCHIPS...",
+  "LOADING MECHANICAL DYNAMICS, AEROSPACE TURBINES & ROBOTICS KINEMATICS...",
+  "CALIBRATING CIVIL INFRASTRUCTURE, STRUCTURAL CAD & BIO-MOL PROCESSES...",
+  "SYNCING QUANTUM COMPUTATION LAYERS & RENEWABLE ENERGY GRIDS...",
+  "VERIFYING MULTI-GATEWAY SECURE FIREWALL IP CHANNELS...",
+  "ALL DISCIPLINARY HUBS INTEGRATED // SECURE HUD v11.0 ONLINE."
 ];
 
 export const BootScreen: React.FC = () => {
@@ -50,8 +47,8 @@ export const BootScreen: React.FC = () => {
             <Cpu className="text-os-cyan w-8 h-8" />
           </div>
           <div>
-            <h1 className="text-3xl font-black tracking-tighter text-os-cyan glow-cyan">ENGINEER OS</h1>
-            <p className="text-xs text-os-cyan/60 uppercase tracking-widest">Advanced Research System</p>
+            <h1 className="text-3xl font-black tracking-tighter text-os-cyan glow-cyan">ENGINEER HUD</h1>
+            <p className="text-xs text-os-cyan/60 uppercase tracking-widest">MULTIDISCIPLINARY ENGINEER SYSTEMS</p>
           </div>
         </motion.div>
 

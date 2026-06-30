@@ -9,15 +9,15 @@ const Planet: React.FC = () => (
   <group>
     <Sphere args={[1, 64, 64]}>
        <meshStandardMaterial 
-          color="#0066ff" 
-          emissive="#0044aa" 
-          emissiveIntensity={0.5} 
+          color="#E23636" 
+          emissive="#551111" 
+          emissiveIntensity={0.6} 
           wireframe
         />
     </Sphere>
     <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.5, 0.01, 16, 100]} />
-        <meshBasicMaterial color="#00f2ff" transparent opacity={0.3} />
+        <meshBasicMaterial color="#ffb800" transparent opacity={0.3} />
     </mesh>
   </group>
 );

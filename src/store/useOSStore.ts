@@ -13,6 +13,7 @@ export type OSModule =
 interface OSState {
   currentModule: OSModule;
   isBooted: boolean;
+  selectedBranch: string;
   systemStatus: {
     reactor: string;
     temp: number;
@@ -22,6 +23,7 @@ interface OSState {
   isDiagnosticRunning: boolean;
   setModule: (module: OSModule) => void;
   setBooted: (status: boolean) => void;
+  setBranch: (branch: string) => void;
   updateStatus: (update: Partial<OSState['systemStatus']>) => void;
   addNotification: (message: string, type?: 'info' | 'warn' | 'error') => void;
   removeNotification: (id: string) => void;
@@ -31,6 +33,7 @@ interface OSState {
 export const useOSStore = create<OSState>((set) => ({
   currentModule: 'BOOT',
   isBooted: false,
+  selectedBranch: "Computer Science Engineering (CSE)",
   systemStatus: {
     reactor: 'OPTIMIZING',
     temp: 35,
@@ -40,6 +43,7 @@ export const useOSStore = create<OSState>((set) => ({
   isDiagnosticRunning: false,
   setModule: (module) => set({ currentModule: module }),
   setBooted: (status) => set({ isBooted: status, currentModule: status ? 'AI_COMMAND' : 'BOOT' }),
+  setBranch: (branch) => set({ selectedBranch: branch }),
   updateStatus: (update) => set((state) => ({ 
     systemStatus: { ...state.systemStatus, ...update } 
   })),

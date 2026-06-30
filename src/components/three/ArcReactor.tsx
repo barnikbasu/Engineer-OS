@@ -47,7 +47,7 @@ const OrbitingBit: React.FC<{ angle: number; distance: number; speed: number; ro
       <group ref={ref}>
         <mesh position={[distance, 0, 0]}>
           <octahedronGeometry args={[0.05]} />
-          <meshBasicMaterial color="#00f2ff" transparent opacity={0.6} />
+          <meshBasicMaterial color="#E23636" transparent opacity={0.6} />
         </mesh>
       </group>
     </group>
@@ -74,12 +74,12 @@ export const ArcReactor: React.FC = () => {
       <Float speed={5} rotationIntensity={0.2} floatIntensity={0.5}>
         <Sphere ref={coreRef} args={[0.5, 64, 64]}>
           <MeshDistortMaterial
-            color="#00f2ff"
+            color="#E23636"
             distort={0.4}
             speed={5}
             roughness={0}
             metalness={1}
-            emissive="#00f2ff"
+            emissive="#E23636"
             emissiveIntensity={2}
           />
         </Sphere>
@@ -94,7 +94,7 @@ export const ArcReactor: React.FC = () => {
           <group key={`cage-${i}`} rotation={[0, 0, (i * Math.PI) / 4]}>
             <mesh position={[0.6, 0, 0]}>
               <boxGeometry args={[0.1, 0.02, 0.2]} />
-              <meshBasicMaterial color="#00f2ff" transparent opacity={0.8} />
+              <meshBasicMaterial color="#ffb800" transparent opacity={0.8} />
             </mesh>
           </group>
         ))}
@@ -102,11 +102,11 @@ export const ArcReactor: React.FC = () => {
 
       {/* Main Energy Rings */}
       <group ref={shellRef}>
-        <ReactorRing radius={1.2} tube={0.015} speed={1.2} color="#00f2ff" opacity={0.5} />
-        <ReactorRing radius={1.25} tube={0.005} speed={-1.5} color="#ffffff" opacity={0.2} />
+        <ReactorRing radius={1.2} tube={0.015} speed={1.2} color="#E23636" opacity={0.5} />
+        <ReactorRing radius={1.25} tube={0.005} speed={-1.5} color="#ffffff" opacity={0.3} />
         
-        <ReactorRing radius={1.6} tube={0.01} speed={-0.6} color="#0066ff" opacity={0.3} rotationAxis="x" />
-        <ReactorRing radius={2.0} tube={0.005} speed={0.4} color="#FF7A00" opacity={0.4} rotationAxis="y" />
+        <ReactorRing radius={1.6} tube={0.01} speed={-0.6} color="#E23636" opacity={0.3} rotationAxis="x" />
+        <ReactorRing radius={2.0} tube={0.005} speed={0.4} color="#ffb800" opacity={0.4} rotationAxis="y" />
         
         {/* Segmented Outer Technical Ring */}
         <group rotation={[Math.PI / 2, 0, 0]}>
@@ -114,12 +114,12 @@ export const ArcReactor: React.FC = () => {
             <group key={`segment-${i}`} rotation={[0, 0, (i * Math.PI * 2) / 24]}>
               <mesh position={[2.4, 0, 0]}>
                 <boxGeometry args={[0.15, 0.02, 0.01]} />
-                <meshBasicMaterial color="#00f2ff" transparent opacity={0.4} />
+                <meshBasicMaterial color="#E23636" transparent opacity={0.4} />
               </mesh>
               {i % 4 === 0 && (
                 <mesh position={[2.5, 0, 0]}>
                   <boxGeometry args={[0.05, 0.1, 0.02]} />
-                  <meshBasicMaterial color="#FF7A00" transparent opacity={0.8} />
+                  <meshBasicMaterial color="#ffb800" transparent opacity={0.8} />
                 </mesh>
               )}
             </group>
@@ -143,7 +143,7 @@ export const ArcReactor: React.FC = () => {
         <group key={`ray-${i}`} rotation={[0, 0, i * Math.PI / 3]}>
           <Ring args={[0.8, 4, 32]}>
             <meshBasicMaterial 
-              color="#00f2ff" 
+              color="#E23636" 
               transparent 
               opacity={0.01} 
               side={THREE.DoubleSide} 
@@ -162,12 +162,12 @@ export const ArcReactor: React.FC = () => {
             itemSize={3}
           />
         </bufferGeometry>
-        <pointsMaterial color="#00f2ff" size={0.015} transparent opacity={0.3} />
+        <pointsMaterial color="#E23636" size={0.015} transparent opacity={0.3} />
       </points>
 
-      <pointLight intensity={10} color="#00f2ff" decay={2} distance={10} />
-      <pointLight position={[3, 3, 3]} intensity={2} color="#FF7A00" />
-      <pointLight position={[-3, -3, 2]} intensity={1} color="#0066ff" />
+      <pointLight intensity={10} color="#E23636" decay={2} distance={10} />
+      <pointLight position={[3, 3, 3]} intensity={2} color="#ffb800" />
+      <pointLight position={[-3, -3, 2]} intensity={1} color="#E23636" />
     </group>
   );
 };

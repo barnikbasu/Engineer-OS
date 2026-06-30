@@ -1,169 +1,274 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Shield, Lock, Monitor, ShieldAlert, Cpu } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Shield, Lock, Monitor, ShieldAlert, Cpu, Download, Wifi, Activity } from 'lucide-react';
 import { useOSStore } from '../../store/useOSStore';
 
 export const CyberCore: React.FC = () => {
-  const [glitchText, setGlitchText] = useState("ENCRYPTION_LAYER_01_ACTIVE");
   const { addNotification } = useOSStore();
+  const [logs, setLogs] = useState<string[]>([
+    "[04:12:09] SECURE_TUNNEL :: Initializing Handshake...",
+    "[04:12:10] CRYPTO_BRIDGE :: RSA 4096 layer handshaked successfully",
+    "[04:12:12] FIREWALL :: Ingress traffic rate normal (4.2k pkt/s)",
+    "[04:12:15] PORT_SCAN_ALERT :: Minor scan detected from 182.44.92.11 - Blocked",
+    "[04:12:19] INTEL_NODE :: Quantum cryptographic alignment completed"
+  ]);
 
+  // Feed simulation
   useEffect(() => {
     const interval = setInterval(() => {
-      const texts = ["ENCRYPTION_LAYER_01_ACTIVE", "THREAT_DETECTED_SECTOR_4", "DECRYPTING_NEURAL_BUS", "BYPASSING_FIREWALL_7", "SECURE_PROTOCOL_INIT"];
-      setGlitchText(texts[Math.floor(Math.random() * texts.length)]);
-    }, 3000);
+      const timestamps = new Date().toLocaleTimeString([], { hour12: false });
+      const randomLogs = [
+        `[${timestamps}] SECURE_TUNNEL :: Synced cluster heartbeat beacon`,
+        `[${timestamps}] THREAT_MITIGATION :: Blocked unauthorized ping from host_91.10.3`,
+        `[${timestamps}] NEURAL_BUS :: Shield strength calibrated at 100%`,
+        `[${timestamps}] DECRYPTING_NEURAL_BUS :: Packet signatures: OK`,
+        `[${timestamps}] FIREWALL_GRID :: Port integrity verification: PASSED`
+      ];
+      setLogs(prev => [randomLogs[Math.floor(Math.random() * randomLogs.length)], ...prev.slice(0, 8)]);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="h-full flex flex-col gap-6 overflow-hidden text-[#00ffc6]">
-      <div className="flex items-center justify-between border-b border-[#00ffc6]/20 pb-4">
+    <div className="h-full flex flex-col gap-5 overflow-hidden text-white font-sans">
+      
+      {/* Module Header block */}
+      <div className="flex items-center justify-between border-b border-os-cyan/20 pb-4">
         <div className="flex items-center gap-4">
           <div 
             onClick={() => addNotification("Security core integrity: 100%", "info")}
-            className="p-3 bg-[#00ffc6]/10 border border-[#00ffc6]/30 rounded-lg cursor-pointer hover:bg-[#00ffc6]/20 transition-all font-bold"
+            className="p-3 bg-os-cyan/10 border border-os-cyan/30 rounded-lg cursor-pointer hover:bg-os-cyan/20 transition-all font-bold text-os-cyan"
           >
-            <Shield size={24} />
+            <Shield size={24} className="glow-cyan" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-white uppercase italic">Cyber Security Division</h2>
-            <p className="text-[10px] font-mono tracking-[0.2em]">{glitchText}</p>
+            <h2 className="text-2xl font-bold tracking-tight text-white uppercase">Cyber Security Core</h2>
+            <p className="text-[10px] font-mono tracking-[0.2em] text-os-cyan/60 uppercase font-bold">NODE_ID: CYBER_SEC_GLOBAL // SECTOR_LNK_99</p>
           </div>
         </div>
         <div className="flex gap-4">
-            <div 
-              onClick={() => addNotification("Analyzing intrusion signature. Origin: DARK_NET_ROUTER_04", "warn")}
-              className="bg-os-red/10 border border-os-red/20 px-4 py-2 rounded text-[10px] font-mono text-os-red animate-pulse flex items-center gap-2 cursor-pointer hover:bg-os-red/20 transition-all font-bold"
-            >
-               <ShieldAlert size={14} />
-               INTRUSION_ATTEMPT_BLOCKED
+          <div 
+            onClick={() => addNotification("Analyzing intrusion signatures in real time...", "warn")}
+            className="bg-os-red/10 border border-os-red/20 px-4 py-2 rounded-lg text-[10px] font-mono text-os-red animate-pulse flex items-center gap-2 cursor-pointer hover:bg-os-red/20 transition-all font-bold"
+          >
+            <ShieldAlert size={14} />
+            DEFENSIVE OVERRIDE ACTIVE
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Pane (Two columns as in Image 3) */}
+      <div className="flex-1 grid grid-cols-12 gap-5 min-h-0">
+        
+        {/* Left main card: GLOBAL THREAT PERIMETER with map visualization (7/12) */}
+        <div className="col-span-12 lg:col-span-8 os-panel flex flex-col relative overflow-hidden bg-black/60 border-white/5">
+          {/* Subtle grid background */}
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(226,54,54,0.15)_0%,transparent_100%)] pointer-events-none" />
+          <div className="absolute inset-0 opacity-5 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:30px_30px]" />
+
+          {/* Title bar */}
+          <div className="p-5 border-b border-white/5 flex justify-between items-center bg-white/[0.01]">
+            <div className="flex flex-col">
+              <span className="text-[10px] font-mono text-os-cyan font-bold tracking-widest uppercase">DISCIPLINARY COGNITIVE SECURITY ENGINE ARC-SYS_4.2.0</span>
+              <h3 className="text-base font-black tracking-tight text-white uppercase mt-0.5">GLOBAL THREAT PERIMETER</h3>
             </div>
-        </div>
-      </div>
+            <div className="flex gap-3 text-[10px] font-mono">
+              <span className="px-2.5 py-0.5 bg-os-red/10 border border-os-red/30 text-os-red rounded font-bold animate-pulse">ACTIVE THREAT FEED</span>
+              <span className="px-2.5 py-0.5 bg-white/5 border border-white/10 text-white/50 rounded font-bold uppercase">14.2% LOAD</span>
+            </div>
+          </div>
 
-      <div className="flex-1 grid grid-cols-12 gap-6 min-h-0">
-        <div className="col-span-12 lg:col-span-8 border border-[#00ffc6]/10 rounded-2xl relative overflow-hidden bg-black/40 backdrop-blur-xl">
-           {/* Matrix Code Rain Simulation */}
-           <div className="absolute inset-0 opacity-20 pointer-events-none flex justify-around overflow-hidden">
-             {[...Array(20)].map((_, i) => (
-               <motion.div 
-                 key={i}
-                 className="w-px h-full bg-gradient-to-b from-[#00ffc6] to-transparent"
-                 animate={{ y: ['-100%', '100%'] }}
-                 transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, ease: 'linear', delay: Math.random() * 2 }}
-               />
-             ))}
-           </div>
-
-           <div className="relative h-full p-8 flex flex-col">
-              <div className="flex justify-between items-start mb-12">
-                 <div className="space-y-1">
-                    <h3 className="text-xs font-bold uppercase tracking-widest opacity-60">Global Threat Monitoring</h3>
-                    <div className="flex gap-2">
-                       <span 
-                         onClick={() => addNotification("Node EU status check: STABLE", "info")}
-                         className="text-[10px] font-mono bg-[#00ffc6]/10 px-2 py-0.5 rounded cursor-pointer hover:bg-[#00ffc6]/30 transition-all font-bold"
-                       >
-                         EU_NODE: STANDBY
-                       </span>
-                       <span 
-                         onClick={() => addNotification("Node US status check: ACTIVE_LOAD", "info")}
-                         className="text-[10px] font-mono bg-[#00ffc6]/10 px-2 py-0.5 rounded cursor-pointer hover:bg-[#00ffc6]/30 transition-all font-bold"
-                       >
-                         US_NODE: ACTIVE
-                       </span>
-                       <span 
-                         onClick={() => addNotification("AS_NODE under heavy DDoS pressure. Scaling mitigation...", "warn")}
-                         className="text-[10px] font-mono bg-os-red/20 px-2 py-0.5 rounded text-os-red animate-pulse cursor-pointer hover:bg-os-red/40 transition-all font-bold"
-                       >
-                         AS_NODE: HIGH_LOAD
-                       </span>
-                    </div>
-                 </div>
-                 <div className="text-right">
-                    <p className="text-[8px] opacity-40 uppercase tracking-widest font-bold">Uptime</p>
-                    <p className="text-xl font-black italic tracking-tighter">999:24:12</p>
-                 </div>
+          {/* Tactical map with dotted arcs and target nodes (Image 3) */}
+          <div className="flex-1 relative flex items-center justify-center p-8 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.8)_0%,transparent_100%)]">
+            
+            {/* Styled tactical circular concentric lines */}
+            <div className="absolute w-[450px] h-[450px] border border-white/5 rounded-full flex items-center justify-center pointer-events-none">
+              <div className="w-[350px] h-[350px] border border-os-cyan/5 rounded-full flex items-center justify-center">
+                <div className="w-[220px] h-[220px] border border-white/5 rounded-full flex items-center justify-center border-dashed">
+                  <div className="w-[100px] h-[100px] border border-os-cyan/10 rounded-full flex items-center justify-center" />
+                </div>
               </div>
+            </div>
 
-              <div className="flex-1 flex items-center justify-center relative">
-                 <div className="absolute w-64 h-64 border border-[#00ffc6]/10 rounded-full animate-spin-slow opacity-20" />
-                 <div className="absolute w-80 h-80 border border-[#00ffc6]/10 rounded-full animate-spin-reverse-slow opacity-10" />
-                 <div className="relative z-10 flex flex-col items-center">
-                    <div 
-                      onClick={() => addNotification("Biometric handprint required for Master Key access.", "warn")}
-                      className="w-24 h-24 rounded-2xl bg-[#00ffc6]/5 border border-[#00ffc6]/20 flex items-center justify-center relative group cursor-pointer hover:bg-[#00ffc6]/10 transition-all shadow-[0_0_15px_rgba(0,255,198,0.1)] hover:shadow-[0_0_25px_rgba(0,255,198,0.2)]"
-                    >
-                       <Lock size={48} className="text-[#00ffc6] group-hover:scale-110 transition-transform" />
-                       <div className="absolute -top-1 -right-1 w-4 h-4 bg-os-red rounded-full flex items-center justify-center text-[8px] font-bold text-white border-2 border-black">!</div>
-                    </div>
-                    <span className="mt-6 text-[10px] font-mono font-bold tracking-[0.4em] opacity-40">ENCRYPTION_MASTER_KEY</span>
-                 </div>
-              </div>
+            {/* Static high-tech map overlay (Image 3 coordinates & node nodes) */}
+            <svg viewBox="0 0 800 400" className="w-full h-full max-h-[260px] opacity-40 absolute inset-0 m-auto pointer-events-none">
+              {/* Simplified world map outline */}
+              <path d="M 150 150 Q 200 120 250 160 T 350 180 T 450 140 T 550 170 T 650 130 T 750 150 L 750 250 T 650 280 T 550 240 T 450 270 T 350 250 T 250 230 Z" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+              <path d="M 50 180 Q 80 140 120 190 T 200 210" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" strokeDasharray="3 3" />
+              
+              {/* Tactical arcs (Image 3 threat vectors) */}
+              <path d="M 180 150 Q 300 80 420 140" fill="none" stroke="#E23636" strokeWidth="2" strokeDasharray="4 4" className="animate-pulse" />
+              <path d="M 580 160 Q 420 80 320 250" fill="none" stroke="#ffb800" strokeWidth="1.5" strokeDasharray="2 2" />
+              <path d="M 280 220 Q 450 350 620 180" fill="none" stroke="#E23636" strokeWidth="1" />
+            </svg>
 
-              <div className="mt-auto grid grid-cols-4 gap-6 pt-6 border-t border-[#00ffc6]/10">
-                 {[
-                   { l: 'Packets/s', v: '124,092' },
-                   { l: 'Bitrate', v: '8.4 Gbps' },
-                   { l: 'Dropped', v: '0.001%' },
-                   { l: 'Latency', v: '4ms' }
-                 ].map((stat, i) => (
-                   <div key={i}>
-                      <p className="text-[8px] opacity-40 uppercase font-bold mb-1">{stat.l}</p>
-                      <p className="text-xs font-mono font-bold">{stat.v}</p>
-                   </div>
-                 ))}
-              </div>
-           </div>
-        </div>
-
-        <div className="col-span-12 lg:col-span-4 flex flex-col gap-6">
-           <div className="border border-[#00ffc6]/10 p-6 rounded-2xl bg-black/40 backdrop-blur-xl flex flex-col gap-4">
-              <h4 className="text-[10px] font-bold uppercase tracking-widest opacity-60 flex items-center gap-2">
-                <Monitor size={14} />
-                Network Map
-              </h4>
-              <div className="h-48 relative border border-[#00ffc6]/10 rounded-lg overflow-hidden p-4 bg-black/20">
-                 <div className="absolute inset-0 bg-[#00ffc6]/5 opacity-20 animate-pulse" />
-                 {[...Array(8)].map((_, i) => (
-                    <motion.div 
-                      key={i}
-                      onClick={() => addNotification(`Tracing node ${i}... Connection stable.`, "info")}
-                      className="absolute w-2 h-2 bg-[#00ffc6] rounded-full shadow-[0_0_10px_rgba(0,255,198,0.5)] cursor-pointer hover:scale-150 transition-all z-20"
-                      style={{ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` }}
-                      animate={{ scale: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-                    />
-                 ))}
-                 <div className="text-[8px] font-mono opacity-20 absolute bottom-2 right-2 uppercase tracking-widest font-bold">Tracing_Packets...</div>
-              </div>
-           </div>
-
-           <div className="flex-1 border border-[#00ffc6]/10 p-6 rounded-2xl bg-black/40 backdrop-blur-xl flex flex-col gap-4">
-              <h4 className="text-[10px] font-bold uppercase tracking-widest opacity-60 flex items-center gap-2">
-                <Cpu size={14} />
-                Neural Log Feed
-              </h4>
-              <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar flex flex-col font-mono">
-                 {[...Array(10)].map((_, i) => (
-                   <div 
-                     key={i} 
-                     onClick={() => addNotification(`Log entry ${i} detailed view requested.`, "info")}
-                     className="text-[9px] font-mono leading-tight p-2 rounded bg-[#00ffc6]/5 border border-[#00ffc6]/10 cursor-pointer hover:bg-[#00ffc6]/10 hover:border-[#00ffc6]/30 transition-all"
-                   >
-                      <span className="opacity-40">[{Math.random().toString(36).substring(7).toUpperCase()}]</span> Connection from node_81.42.10.3 restricted by policy 04.
-                   </div>
-                 ))}
-              </div>
-              <button 
-                onClick={() => addNotification("EMERGENCY SYSTEM LOCKDOWN ENGAGED. ALL ACCESS REVOKED.", "warn")}
-                className="w-full py-2 bg-[#00ffc6]/10 border border-[#00ffc6]/20 rounded-lg text-[#00ffc6] text-[10px] font-bold uppercase tracking-widest hover:bg-os-red/20 hover:border-os-red/40 hover:text-os-red transition-all active:scale-95 shadow-[0_0_15px_rgba(0,255,198,0.1)] hover:shadow-[0_0_20px_rgba(255,59,48,0.2)]"
+            {/* Hot glowing nodes overlay */}
+            <div className="absolute inset-0">
+              {/* Interactive Threat Node 1 */}
+              <div 
+                onClick={() => addNotification("Node security trace: Moscow core active.", "info")}
+                className="absolute top-[35%] left-[30%] cursor-pointer group z-20"
               >
-                 System Lockdown
-              </button>
-           </div>
+                <div className="w-3 h-3 bg-os-cyan rounded-full animate-ping absolute" />
+                <div className="w-3 h-3 bg-os-cyan rounded-full border border-black relative z-10" />
+                <div className="absolute left-5 -top-2 bg-black/80 border border-os-cyan/30 px-1.5 py-0.5 rounded text-[8px] font-mono text-os-cyan opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  EU_GATEWAY // SECTOR_8
+                </div>
+              </div>
+
+              {/* Threat Node 2 */}
+              <div 
+                onClick={() => addNotification("Node security trace: Tokyo satellite link standard.", "info")}
+                className="absolute top-[55%] left-[75%] cursor-pointer group z-20"
+              >
+                <div className="w-3 h-3 bg-os-orange rounded-full animate-ping absolute" />
+                <div className="w-3 h-3 bg-os-orange rounded-full border border-black relative z-10" />
+                <div className="absolute left-5 -top-2 bg-black/80 border border-os-orange/30 px-1.5 py-0.5 rounded text-[8px] font-mono text-os-orange opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  ASIA_SYNC // SECTOR_12
+                </div>
+              </div>
+
+              {/* Threat Node 3 */}
+              <div 
+                onClick={() => addNotification("Node security trace: US East threat vector mitigated.", "info")}
+                className="absolute top-[45%] left-[18%] cursor-pointer group z-20"
+              >
+                <div className="w-3 h-3 bg-os-red rounded-full animate-ping absolute" />
+                <div className="w-3 h-3 bg-os-red rounded-full border border-black relative z-10" />
+                <div className="absolute left-5 -top-2 bg-black/80 border border-os-red/30 px-1.5 py-0.5 rounded text-[8px] font-mono text-os-red opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  US_EAST // THREAT_SRC
+                </div>
+              </div>
+            </div>
+
+            {/* Interactive Threat status message */}
+            <div className="absolute bottom-6 left-6 flex flex-col gap-1 bg-black/80 border border-white/5 rounded-xl p-3 z-10 font-mono text-[9px]">
+              <span className="text-white/40 uppercase">THREAT PERIMETER STATUS</span>
+              <span className="text-os-red font-black tracking-widest animate-pulse">DEFENSIVE MANEUVER ENGAGED</span>
+            </div>
+
+            {/* Biometric validation block */}
+            <div className="absolute top-6 right-6 flex items-center gap-3 bg-black/60 border border-white/5 rounded-xl p-3 z-10">
+              <div className="w-8 h-8 rounded-lg bg-os-cyan/10 border border-os-cyan/30 flex items-center justify-center text-os-cyan animate-pulse">
+                <Lock size={14} className="glow-cyan" />
+              </div>
+              <div className="flex flex-col font-mono text-[8px]">
+                <span className="text-white/40 uppercase">ENCRYPTION PROTOCOL</span>
+                <span className="text-white font-bold">ARC-KEY_4096_ON</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Network traffic logs console at bottom (Image 3 Bottom part) */}
+          <div className="p-5 border-t border-white/5 bg-black/40 flex flex-col gap-3 font-mono">
+            <div className="flex justify-between items-center text-[9px]">
+              <span className="text-white/40 uppercase font-bold">NETWORK TRAFFIC LOGS</span>
+              <span className="text-os-cyan font-bold">SECURE_SOCKET_TUNNEL</span>
+            </div>
+            <div className="bg-black/80 border border-white/5 p-3 rounded-lg h-24 overflow-y-auto text-[9px] text-white/70 space-y-1.5 custom-scrollbar">
+              {logs.map((log, idx) => (
+                <div key={idx} className={idx === 0 ? "text-os-cyan animate-pulse" : "text-white/60"}>
+                  {log}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+
+        {/* Right sidebars: Encryption metrics (4/12) */}
+        <div className="col-span-12 lg:col-span-4 flex flex-col gap-5">
+          
+          {/* Panel 1: Encryption integrity ring chart (Image 3) */}
+          <div className="border-glass p-6 rounded-2xl bg-black/40 backdrop-blur-xl flex flex-col gap-4">
+            <h4 className="text-[10px] font-bold uppercase font-mono tracking-widest text-white/50 flex items-center gap-2">
+              <Activity size={14} className="text-os-cyan" />
+              ENCRYPTION INTEGRITY
+            </h4>
+
+            <div className="relative py-4 flex flex-col items-center justify-center">
+              {/* Circular SVG percentage indicator ring */}
+              <svg className="w-32 h-32 transform -rotate-90">
+                <circle cx="64" cy="64" r="54" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="6" />
+                <motion.circle 
+                  cx="64" 
+                  cy="64" 
+                  r="54" 
+                  fill="none" 
+                  stroke="#E23636" 
+                  strokeWidth="6"
+                  strokeDasharray="339.29"
+                  initial={{ strokeDashoffset: 339.29 }}
+                  animate={{ strokeDashoffset: 3.39 }} // 99.9%
+                  transition={{ duration: 2, ease: "easeOut" }}
+                  style={{ filter: "drop-shadow(0 0 6px #E23636)" }}
+                />
+              </svg>
+              <div className="absolute flex flex-col items-center">
+                <span className="text-2xl font-black text-white font-sans tracking-tighter">99.9%</span>
+                <span className="text-[8px] font-mono text-os-cyan/60 tracking-widest uppercase">ENCRYPTED</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-center text-[9px] font-mono pt-2 border-t border-white/5 bg-white/[0.01] rounded-lg p-2">
+              <div>
+                <p className="text-white/30 uppercase font-bold">ALGORITHM</p>
+                <p className="text-white font-bold mt-0.5">AES_256_GCM</p>
+              </div>
+              <div>
+                <p className="text-white/30 uppercase font-bold">KEY STATE</p>
+                <p className="text-os-cyan font-bold mt-0.5">ROTATED_05M</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Panel 2: Firewall load progress bars (Image 3) */}
+          <div className="flex-1 border-glass p-6 rounded-2xl bg-black/40 backdrop-blur-xl flex flex-col gap-5">
+            <div className="flex justify-between items-center border-b border-white/5 pb-3">
+              <h4 className="text-[10px] font-bold uppercase font-mono tracking-widest text-white/50 flex items-center gap-2">
+                <Cpu size={14} className="text-os-cyan" />
+                FIREWALL LOAD
+              </h4>
+              <span className="text-[9px] font-mono text-os-red font-bold animate-pulse">CRITICAL</span>
+            </div>
+
+            <div className="space-y-4 flex-1 flex flex-col justify-center font-mono">
+              {[
+                { name: 'US_EAST GATEWAY', val: 88, color: 'bg-os-red shadow-[0_0_8px_#E23636]' },
+                { name: 'EU_WEST SHIELD', val: 34, color: 'bg-os-cyan' },
+                { name: 'ASIA_PACIFIC HUB', val: 92, color: 'bg-os-red shadow-[0_0_8px_#E23636] animate-pulse' },
+                { name: 'LATAM TUNNEL', val: 12, color: 'bg-white/40' }
+              ].map((fw, i) => (
+                <div key={i} className="space-y-1.5 cursor-pointer group" onClick={() => addNotification(`Calibrating firewall route for ${fw.name}...`, "info")}>
+                  <div className="flex justify-between text-[8px] text-white/40 uppercase font-bold group-hover:text-white transition-colors">
+                    <span>{fw.name}</span>
+                    <span>{fw.val}%</span>
+                  </div>
+                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5 p-px">
+                    <motion.div 
+                      className={`h-full rounded-full ${fw.color}`}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${fw.val}%` }}
+                      transition={{ duration: 1.5, delay: i * 0.1 }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Downloader Button (Image 3 Asset download) */}
+            <button 
+              onClick={() => addNotification("Securing asset recovery package: SECURE_ENCRYPTED_LOGS_BUNDLE.RAW. Download initiated...", "info")}
+              className="w-full py-3 bg-os-cyan/10 hover:bg-os-cyan/20 border border-os-cyan/40 hover:border-os-cyan text-os-cyan text-[10px] font-mono font-black uppercase tracking-[0.2em] rounded-xl transition-all shadow-[0_0_10px_rgba(226,54,54,0.15)] flex items-center justify-center gap-2 mt-auto cursor-pointer"
+            >
+              <Download size={13} className="animate-bounce" />
+              SECURE ASSET RECOVERY: SECURE_ENCRYPTED_LOGS_BUNDLE.RAW
+            </button>
+          </div>
+
+        </div>
+
       </div>
+
     </div>
   );
 };

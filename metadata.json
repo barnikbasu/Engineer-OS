@@ -1,6 +1,6 @@
 {
   "name": "ENGINEER OS",
-  "description": "A futuristic, cinematic, all-in-one engineering scientist command center dashboard with immersive 3D systems and AI-powered diagnostic modules.",
+  "description": "A high-fidelity cinematic multidisciplinary engineering workstation HUD featuring interactive 3D simulations, physics systems, CAD schematics, and diagnostic suites for computing, electrical, mechanical, civil, chemical, and life science disciplines.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

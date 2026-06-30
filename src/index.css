@@ -1,16 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@300;400;700&family=Orbitron:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@300;400;700&family=Oswald:wght@400;500;600;700&family=Orbitron:wght@400;900&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Oswald", "Inter", sans-serif;
   
-  --color-os-cyan: #00f2ff;
-  --color-os-blue: #0066ff;
+  --color-os-cyan: #ff8577;
+  --color-os-blue: #ffffff;
   --color-os-gold: #ffb800;
-  --color-os-orange: #FF7A00;
-  --color-os-red: #ff3e3e;
-  --color-os-bg: #020508;
+  --color-os-orange: #ffb800;
+  --color-os-red: #E23636;
+  --color-os-bg: #050508;
 }
 
 @layer base {
@@ -18,24 +19,27 @@
     @apply bg-os-bg text-white overflow-hidden selection:bg-os-cyan selection:text-os-bg;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     background-image: 
-      radial-gradient(circle at 50% 50%, rgba(7, 17, 27, 1) 0%, rgba(2, 5, 8, 1) 100%),
+      radial-gradient(circle at 50% 50%, rgba(24, 6, 6, 0.6) 0%, rgba(3, 3, 4, 1) 100%),
+      linear-gradient(rgba(226, 54, 54, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(226, 54, 54, 0.04) 1px, transparent 1px),
       url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+    background-size: 100% 100%, 50px 50px, 50px 50px, auto;
   }
 
   .glow-cyan {
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.6), 0 0 20px rgba(0, 242, 255, 0.4);
+    text-shadow: 0 0 10px rgba(226, 54, 54, 0.8), 0 0 20px rgba(226, 54, 54, 0.4);
   }
 
   .glow-orange {
-    text-shadow: 0 0 10px rgba(255, 122, 0, 0.6), 0 0 20px rgba(255, 122, 0, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
   }
   
   .glow-box-cyan {
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.25), inset 0 0 20px rgba(0, 242, 255, 0.15);
+    box-shadow: 0 0 20px rgba(226, 54, 54, 0.35), inset 0 0 20px rgba(226, 54, 54, 0.15);
   }
 
   .glow-box-orange {
-    box-shadow: 0 0 20px rgba(255, 122, 0, 0.25), inset 0 0 20px rgba(255, 122, 0, 0.15);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.1);
   }
 
   .border-glass {
@@ -53,7 +57,8 @@
   }
 
   .os-panel {
-    @apply border border-white/5 bg-black/40 backdrop-blur-2xl rounded-3xl overflow-hidden shadow-2xl;
+    @apply border border-white/5 bg-black/50 backdrop-blur-2xl rounded-3xl overflow-hidden shadow-2xl;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.05);
   }
 
   /* Scanline effect */
@@ -71,7 +76,7 @@
     background: linear-gradient(
       to bottom,
       transparent 50%,
-      rgba(0, 242, 255, 0.05) 50%
+      rgba(226, 54, 54, 0.02) 50%
     );
     background-size: 100% 4px;
     pointer-events: none;
@@ -123,10 +128,10 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 242, 255, 0.3);
+  background: rgba(226, 54, 54, 0.3);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 242, 255, 0.5);
+  background: rgba(226, 54, 54, 0.5);
 }
 
