@@ -13,6 +13,14 @@ import {
   ChemicalDashboard,
   LifeScienceDashboard
 } from '../modules/EngineeringDashboards';
+import { MasterHub } from '../modules/MasterHub';
+import { RoboticsLab } from '../modules/RoboticsLab';
+import { F1Telemetry } from '../modules/F1Telemetry';
+import { CyberCore } from '../modules/CyberCore';
+import { PhysicsLab } from '../modules/PhysicsLab';
+import { AerospaceHub } from '../modules/AerospaceHub';
+import { KnowledgeDB } from '../modules/KnowledgeDB';
+import { TechnicalBlueprintSuit } from '../modules/TechnicalBlueprintSuit';
 import { 
   Wrench, 
   LogOut, 
@@ -53,12 +61,15 @@ export const Shell: React.FC = () => {
   const toggleDiagnostic = useOSStore(state => state.toggleDiagnostic);
 
   // Core high-fidelity active tabs and sub-disciplines
-  const [activeTab, setActiveTab] = useState<'Computing' | 'Electrical' | 'Mechanical' | 'Civil' | 'Chemical' | 'Life Science'>('Computing');
+  const [activeTab, setActiveTab] = useState<'Home' | 'Computing' | 'Electrical' | 'Mechanical' | 'Civil' | 'Chemical' | 'Life Science'>('Home');
   const [activeSub, setActiveSub] = useState<string>('CS CORE');
+  const [homeSection, setHomeSection] = useState<'CORE MODULES' | 'SUB-DISCIPLINES' | 'SCHEMATICS' | 'MATERIAL SPECS' | 'STRESS TESTS' | 'SIMULATION' | 'EMERGING TECH'>('CORE MODULES');
 
   // Sync activeSub on tab change
   useEffect(() => {
-    setActiveSub(SUB_DISCIPLINES[activeTab][0]);
+    if (activeTab !== 'Home') {
+      setActiveSub(SUB_DISCIPLINES[activeTab][0]);
+    }
   }, [activeTab]);
 
   // Command palette state
@@ -133,45 +144,60 @@ export const Shell: React.FC = () => {
       </div>
 
       {/* 1. LEFT SIDE NAVIGATION BAR (Image 2 Left Sidebar layout) */}
-      <aside className="w-[280px] h-full bg-black/70 border-r border-white/5 flex flex-col z-40 relative select-none">
+      <aside className="w-[280px] h-full bg-black/70 border-r border-white/5 flex flex-col z-40 relative select-none font-mono">
         <div className="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-os-cyan/20 via-os-cyan/5 to-transparent" />
         
         {/* Branch Title Coordinate Area */}
         <div className="p-5 border-b border-white/5 flex flex-col gap-1.5 bg-white/[0.01]">
           <span className="font-display font-black text-sm tracking-wider text-white uppercase leading-none">
-            BRANCH: {activeSub}
+            BRANCH: {activeTab === 'Home' ? 'MK-85' : activeSub}
           </span>
           <span className="text-[9px] text-os-cyan tracking-[0.1em] font-mono leading-none mt-1 uppercase font-bold text-white/50">
-            SECTOR-7 COORDINATES // {activeTab.toUpperCase()}
+            SECTOR-7 COORDINATES // {activeTab === 'Home' ? 'MASTER HUB' : activeTab.toUpperCase()}
           </span>
         </div>
 
-        {/* Sub-discipline buttons list (matching Image 2 list layout exactly) */}
-        <nav className="flex-1 px-4 py-5 space-y-2.5 overflow-y-auto custom-scrollbar">
-          {SUB_DISCIPLINES[activeTab].map((sub) => {
-            const isActive = activeSub === sub;
-            return (
-              <button
-                key={sub}
-                onClick={() => {
-                  setActiveSub(sub);
-                  addNotification(`HUD Calibrated for ${activeTab} // ${sub} branch.`, "info");
-                }}
-                className={`w-full px-4 h-11 rounded-xl flex items-center gap-3.5 transition-all group relative ${
-                  isActive 
-                    ? 'bg-os-cyan text-black font-black font-display shadow-[0_0_15px_rgba(255,133,119,0.25)]' 
-                    : 'text-white/40 hover:text-white hover:bg-white/5 font-bold font-mono'
-                }`}
-              >
-                {/* Small indicator dot */}
-                <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-black' : 'bg-white/20'}`} />
-                
-                <span className="text-[10px] uppercase tracking-[0.15em]">
-                  {sub}
-                </span>
-              </button>
-            );
-          })}
+        {/* Sub-discipline buttons list */}
+        <nav className="flex-1 px-4 py-5 space-y-2.5 overflow-y-auto custom-scrollbar text-left">
+          {activeTab === 'Home' ? (
+            (['CORE MODULES', 'SUB-DISCIPLINES', 'SCHEMATICS', 'MATERIAL SPECS', 'STRESS TESTS', 'SIMULATION', 'EMERGING TECH'] as const).map((section) => {
+              const isActive = homeSection === section;
+              return (
+                <button
+                  key={section}
+                  onClick={() => setHomeSection(section)}
+                  className={`w-full px-4 h-11 rounded-xl flex items-center gap-3.5 transition-all group relative text-left cursor-pointer ${
+                    isActive 
+                      ? 'bg-os-cyan text-black font-black font-display shadow-[0_0_15px_rgba(226,54,54,0.35)]' 
+                      : 'text-white/40 hover:text-white hover:bg-white/5 font-bold font-mono'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-black' : 'bg-white/20'}`} />
+                  <span className="text-[10px] uppercase tracking-[0.15em]">{section}</span>
+                </button>
+              );
+            })
+          ) : (
+            SUB_DISCIPLINES[activeTab]?.map((sub) => {
+              const isActive = activeSub === sub;
+              return (
+                <button
+                  key={sub}
+                  onClick={() => {
+                    setActiveSub(sub);
+                  }}
+                  className={`w-full px-4 h-11 rounded-xl flex items-center gap-3.5 transition-all group relative text-left cursor-pointer ${
+                    isActive 
+                      ? 'bg-os-cyan text-black font-black font-display shadow-[0_0_15px_rgba(226,54,54,0.35)]' 
+                      : 'text-white/40 hover:text-white hover:bg-white/5 font-bold font-mono'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-black' : 'bg-white/20'}`} />
+                  <span className="text-[10px] uppercase tracking-[0.15em]">{sub}</span>
+                </button>
+              );
+            })
+          )}
         </nav>
 
         {/* Bottom Actions and Status Card (Image 2 Bottom Left) */}
@@ -226,9 +252,17 @@ export const Shell: React.FC = () => {
         <header className="h-20 border-b border-white/5 bg-os-bg/60 backdrop-blur-xl flex items-center justify-between px-8 z-30 shrink-0 select-none">
           <div className="flex items-center gap-8">
             {/* Title / Brand Stack */}
-            <div className="flex flex-col text-left">
-              <span className="font-black tracking-[0.25em] text-[9px] font-mono text-white/40 leading-none uppercase">MULTIDISCIPLINARY ENGINE SYSTEM</span>
-              <span className="text-lg font-black tracking-tight text-white mt-1 leading-none font-display uppercase">
+            <div 
+              onClick={() => {
+                setActiveTab('Home');
+                setHomeSection('CORE MODULES');
+                addNotification("Returned to Master Engineering Command Hub.", "info");
+              }}
+              className="flex flex-col text-left cursor-pointer group select-none"
+              title="Return to Master Hub (Home)"
+            >
+              <span className="font-black tracking-[0.25em] text-[9px] font-mono text-white/40 leading-none uppercase group-hover:text-os-cyan transition-colors">MULTIDISCIPLINARY ENGINE SYSTEM</span>
+              <span className="text-lg font-black tracking-tight text-white mt-1 leading-none font-display uppercase group-hover:text-white/80 transition-colors">
                 ENGINEER OS <span className="text-os-cyan font-bold font-mono text-[9px] tracking-normal ml-2 bg-os-cyan/10 px-1.5 py-0.5 rounded border border-os-cyan/20">V11.0</span>
               </span>
             </div>
@@ -244,7 +278,6 @@ export const Shell: React.FC = () => {
                     key={tab}
                     onClick={() => {
                       setActiveTab(tab as any);
-                      addNotification(`Calibrating Master HUD: ${tab.toUpperCase()} Core systems active.`, "info");
                     }}
                     className={`relative py-2.5 uppercase hover:text-white transition-all cursor-pointer font-bold ${isActive ? 'text-os-cyan font-black' : 'text-white/30'}`}
                   >
@@ -252,7 +285,7 @@ export const Shell: React.FC = () => {
                     {isActive && (
                       <motion.div 
                         layoutId="top-tab-active"
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-os-cyan shadow-[0_0_8px_#ff8577]"
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-os-cyan shadow-[0_0_8px_#E23636]"
                       />
                     )}
                   </button>
@@ -308,19 +341,47 @@ export const Shell: React.FC = () => {
         <main className="flex-1 p-6 overflow-hidden relative">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeTab}
+              key={`${activeTab}-${activeSub}-${homeSection}`}
               initial={{ opacity: 0, scale: 0.98, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 1.02, y: -10 }}
               transition={{ duration: 0.25 }}
               className="h-full"
             >
-              {activeTab === 'Computing' && <ComputingDashboard addNotification={addNotification} />}
+              {activeTab === 'Home' && (
+                <MasterHub 
+                  setActiveTab={setActiveTab} 
+                  setActiveSub={setActiveSub} 
+                  homeSection={homeSection}
+                  addNotification={addNotification}
+                />
+              )}
+
+              {activeTab === 'Computing' && (
+                activeSub === 'CYBERSEC' ? <CyberCore /> :
+                activeSub === 'DATA SCIENCE' ? <KnowledgeDB /> :
+                <ComputingDashboard addNotification={addNotification} />
+              )}
+
               {activeTab === 'Electrical' && <ElectricalDashboard addNotification={addNotification} />}
-              {activeTab === 'Mechanical' && <MechanicalDashboard addNotification={addNotification} />}
+
+              {activeTab === 'Mechanical' && (
+                activeSub === 'AUTOMOTIVE' ? <F1Telemetry /> :
+                activeSub === 'AEROSPACE' ? <AerospaceHub /> :
+                activeSub === 'ROBOTICS' ? <RoboticsLab /> :
+                activeSub === 'MATERIALS' ? <TechnicalBlueprintSuit /> :
+                <MechanicalDashboard addNotification={addNotification} />
+              )}
+
               {activeTab === 'Civil' && <CivilDashboard addNotification={addNotification} />}
+
               {activeTab === 'Chemical' && <ChemicalDashboard addNotification={addNotification} />}
-              {activeTab === 'Life Science' && <LifeScienceDashboard addNotification={addNotification} />}
+
+              {activeTab === 'Life Science' && (
+                activeSub === 'QUANTUM' ? <PhysicsLab /> :
+                activeSub === 'NANO' ? <TechnicalBlueprintSuit /> :
+                <LifeScienceDashboard addNotification={addNotification} />
+              )}
             </motion.div>
           </AnimatePresence>
         </main>

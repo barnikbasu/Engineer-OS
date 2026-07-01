@@ -736,7 +736,6 @@ export const MechanicalDashboard: React.FC<{ addNotification: (m: string, t?: an
       setRigidity(Math.round(80 + (copy[1].val * 0.4)));
       return copy;
     });
-    addNotification('Material chemical composite matrix recalibrated.', 'info');
   };
 
   // Generate a CAD/FEA engineering text report file download!
@@ -841,7 +840,6 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
             <button 
               onClick={() => {
                 setZoomScale(z => Math.min(1.6, z + 0.1));
-                addNotification('Camera vector zoom-in initiated.', 'info');
               }}
               className="w-7 h-7 bg-white/5 hover:bg-os-cyan/15 border border-white/10 hover:border-os-cyan rounded-lg flex items-center justify-center text-white hover:text-os-cyan transition-all cursor-pointer"
               title="Zoom In"
@@ -852,7 +850,6 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
             <button 
               onClick={() => {
                 setRotAngle(r => (r + 15) % 360);
-                addNotification('Chassis projection rot angle shifted +15°', 'info');
               }}
               className="w-7 h-7 bg-white/5 hover:bg-os-cyan/15 border border-white/10 hover:border-os-cyan rounded-lg flex items-center justify-center text-white hover:text-os-cyan transition-all cursor-pointer"
               title="Rotate Viewport"
@@ -864,7 +861,6 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
               onClick={() => {
                 setZoomScale(1);
                 setRotAngle(0);
-                addNotification('Chassis projection parameters reset to default.', 'info');
               }}
               className="w-7 h-7 bg-white/5 hover:bg-os-cyan/15 border border-white/10 hover:border-os-cyan rounded-lg flex items-center justify-center text-white hover:text-os-cyan transition-all cursor-pointer"
               title="Reset Viewport"
@@ -913,7 +909,7 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
                   x="10" y="5" width="20" height="40" rx="3" 
                   fill={focusedCylinder === 0 ? 'rgba(255,133,119,0.3)' : 'rgba(255,133,119,0.1)'} 
                   stroke={focusedCylinder === 0 ? '#ff8577' : 'rgba(255,133,119,0.4)'}
-                  onClick={() => { setFocusedCylinder(0); addNotification('Core manifold cylinder #1 selected.', 'info'); }}
+                  onClick={() => { setFocusedCylinder(0); }}
                   className="cursor-pointer transition-all"
                 />
                 {/* Cylinder 2 */}
@@ -921,7 +917,7 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
                   x="35" y="5" width="20" height="40" rx="3" 
                   fill={focusedCylinder === 1 ? 'rgba(255,133,119,0.3)' : 'rgba(255,133,119,0.1)'} 
                   stroke={focusedCylinder === 1 ? '#ff8577' : 'rgba(255,133,119,0.4)'}
-                  onClick={() => { setFocusedCylinder(1); addNotification('Core manifold cylinder #2 selected.', 'info'); }}
+                  onClick={() => { setFocusedCylinder(1); }}
                   className="cursor-pointer transition-all"
                 />
                 {/* Cylinder 3 */}
@@ -929,7 +925,7 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
                   x="60" y="5" width="20" height="40" rx="3" 
                   fill={focusedCylinder === 2 ? 'rgba(255,133,119,0.3)' : 'rgba(255,133,119,0.1)'} 
                   stroke={focusedCylinder === 2 ? '#ff8577' : 'rgba(255,133,119,0.4)'}
-                  onClick={() => { setFocusedCylinder(2); addNotification('Core manifold cylinder #3 selected.', 'info'); }}
+                  onClick={() => { setFocusedCylinder(2); }}
                   className="cursor-pointer transition-all"
                 />
                 {/* Cylinder 4 */}
@@ -937,7 +933,7 @@ COMPLIANCE STATUS: VERIFIED OPTIMUM DESIGN`;
                   x="85" y="5" width="20" height="40" rx="3" 
                   fill={focusedCylinder === 3 ? 'rgba(255,133,119,0.3)' : 'rgba(255,133,119,0.1)'} 
                   stroke={focusedCylinder === 3 ? '#ff8577' : 'rgba(255,133,119,0.4)'}
-                  onClick={() => { setFocusedCylinder(3); addNotification('Core manifold cylinder #4 selected.', 'info'); }}
+                  onClick={() => { setFocusedCylinder(3); }}
                   className="cursor-pointer transition-all"
                 />
               </g>
@@ -1141,7 +1137,7 @@ export const CivilDashboard: React.FC<{ addNotification: (m: string, t?: any) =>
               {/* Stress indicators joints */}
               <circle cx="20" cy="60" r="4.5" fill="#111" stroke="#22c55e" strokeWidth="2" />
               <circle cx="60" cy="20" r="4.5" fill="#111" stroke="#22c55e" strokeWidth="2" />
-              <circle cx="100" cy="60" r="5" fill="#111" stroke="#eab308" strokeWidth="3.5" onClick={() => { setFocusedJoint(2); addNotification('Truss center joint selected.', 'info'); }} className="cursor-pointer" />
+              <circle cx="100" cy="60" r="5" fill="#111" stroke="#eab308" strokeWidth="3.5" onClick={() => { setFocusedJoint(2); }} className="cursor-pointer" />
               <circle cx="140" cy="20" r="4.5" fill="#111" stroke="#22c55e" strokeWidth="2" />
               <circle cx="180" cy="60" r="4.5" fill="#111" stroke="#22c55e" strokeWidth="2" />
               <circle cx="220" cy="20" r="4.5" fill="#111" stroke="#22c55e" strokeWidth="2" />
@@ -1164,7 +1160,6 @@ export const CivilDashboard: React.FC<{ addNotification: (m: string, t?: any) =>
             value={pointLoad} 
             onChange={(e) => {
               setPointLoad(parseInt(e.target.value));
-              addNotification(`Virtual truss point load modified: ${e.target.value} kN`, 'info');
             }}
             className="w-full accent-os-cyan h-1 bg-white/10 rounded-lg cursor-pointer"
           />
@@ -1272,7 +1267,6 @@ export const ChemicalDashboard: React.FC<{ addNotification: (m: string, t?: any)
             value={refluxRatio} 
             onChange={(e) => {
               setRefluxRatio(parseFloat(e.target.value));
-              addNotification(`Column reflux ratio adjusted to ${e.target.value}`, 'info');
             }}
             className="w-full accent-os-cyan h-1 bg-white/10 rounded-lg cursor-pointer"
           />
